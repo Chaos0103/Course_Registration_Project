@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div style="width: 100%; overflow-x:scroll;">
+            <table class="table table-striped" style="white-space: nowrap; text-align: center">
+                <thead>
+                <tr>
+                    <th>학번</th>
+                    <th>성명</th>
+                    <th>학과</th>
+                    <th>학년</th>
+                    <th>성적</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course : ${courseList}">
+                    <td th:text="${course.studentInfoDto.id}"></td>
+                    <td th:text="${course.studentInfoDto.name}"></td>
+                    <td th:text="${course.studentInfoDto.major.description}"></td>
+                    <td th:text="|${course.studentInfoDto.year}학년|"></td>
+                    <td>
+                        <a href="#" th:href="'javascript:inputGrade('+${course.gradeId}+')'"
+                           class="btn btn-danger">입력</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+</body>
+<script>
+    function inputGrade(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "get");
+        form.setAttribute("action", "/grade/" + id + "/input");
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</html>

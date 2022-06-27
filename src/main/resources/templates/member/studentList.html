@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div>
+            <form th:object="${searchForm}" class="form-inline">
+                <div class="form-group mb-2">
+                    <input type="text" th:field="*{studentName}" class="form-control" placeholder="회원명"/>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{major}" class="form-control">
+                        <option value="">전공</option>
+                        <option th:each="major : ${majors}"
+                                th:value="${major.name()}"
+                                th:text="${major.description}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>생일</th>
+                <th>성별</th>
+                <th>전공</th>
+                <th>학년</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.birth}"></td>
+                <td th:text="${student.sex.description}"></td>
+                <td th:text="${student.major.description}"></td>
+                <td th:text="${student.year}"></td>
+<!--                <td th:text="${student.address?.zipcode}"></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+</body>
+</html>

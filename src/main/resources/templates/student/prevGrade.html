@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div style="width: 100%; overflow-x:scroll;">
+            <table class="table table-striped" style="white-space: nowrap; text-align: center">
+                <thead>
+                <tr>
+                    <th>학수번호</th>
+                    <th>분반</th>
+                    <th>교과목명</th>
+                    <th>이수구분</th>
+                    <th>학점</th>
+                    <th>중간고사</th>
+                    <th>기말고사</th>
+                    <th>수시및과제</th>
+                    <th>출석</th>
+                    <th>등급</th>
+                    <th>평점</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="grade : ${nowGradeList}">
+                    <td th:text="${grade.lectureInfoDto.mainInfoDto.courseId}"></td>
+                    <td th:text="${grade.lectureInfoDto.mainInfoDto.courseClass}"></td>
+                    <td th:text="${grade.lectureInfoDto.mainInfoDto.courseTitle}"></td>
+                    <td th:text="${grade.lectureInfoDto.mainInfoDto.completionType.description}"></td>
+                    <td th:text="${grade.lectureInfoDto.mainInfoDto.credit}"></td>
+                    <td th:text="${grade.gradeInfoDto.midExam}"></td>
+                    <td th:text="${grade.gradeInfoDto.finalExam}"></td>
+                    <td th:text="${grade.gradeInfoDto.task}"></td>
+                    <td th:text="${grade.gradeInfoDto.attendance}"></td>
+                    <td>등급</td>
+                    <td>평점</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+
+</body>
+<script>
+    function input(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/interest/" + id + "/input");
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</html>
